@@ -5,7 +5,9 @@
 		<title>The Interactive Orion Door</title>
 		<style type="text/css">
 		.header, .footer {
-			width:100%;
+			clear:left;
+		}
+		.footer p {
 			clear:left;
 		}
 		.header div {
@@ -30,6 +32,10 @@
 		table img {
 			max-width:125px;
 			max-height:125px;
+		}
+		table img:hover {
+			max-width:162.5px;
+			max-height:162.5px;
 		}
 		td {
 			text-align:center;
@@ -89,14 +95,11 @@
 		var info = infoTable[name];
 		$('#infoDisplay').children().remove();
 		$('<h2>' + info.name + '</h2><h3>' + info.discoverer + '</h3><img src="http://www-space.arc.nasa.gov/~rubin/images/' + info.imgsrc + '"></img>').appendTo($('#infoDisplay'))
-		$(this).css('max-width',function(index,value) {return parseInt(value) * 1.3 + "px";});
-		$(this).css('max-height',function(index,value) {return parseInt(value) * 1.3 + "px";});
-		$(this).css('width',function(index,value) {return parseInt(value) * 1.3 + "px";});
+		
+		$(this).css('width',function(index,value) {return parseFloat(value) * 1.3 + "px";});
 	}
 	function hideInfo(event) {
-		$(this).css('width',function(index,value) {return parseInt(value) / 1.3 + "px";});
-		$(this).css('max-width',function(index,value) {return parseInt(value) / 1.3 + "px";});
-		$(this).css('max-height',function(index,value) {return parseInt(value) / 1.3 + "px";});
+		$(this).css('width',function(index,value) {return parseFloat(value) / 1.3 + "px";});
 	}
 	var infoTable = {
 		'smorion_candy.gif':{
