@@ -21,7 +21,8 @@ while true
       timg = a > 'img'
       timgsrc = timg[0]['src']
       txt = a.inner_text.strip
-      contributor = this.inner_text.scan(/\([^)]+\)/)[-1]
+      puts a.inner_text.length
+      contributor = this.inner_text.match(/\([^)]+\)/, a.inner_text.length)
       if !contributor
         contributor = "(Contributed by Bob Rubin)"
       end
