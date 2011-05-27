@@ -29,7 +29,20 @@
 		}
 		.nav:hover {
 			background-color:#004;
-			color:#eef;
+			color:#ddf;
+		}
+		.nav.inactive {
+			background-color:#666;
+			color:#ddd;
+		}
+		#left-nav {
+			cursor:w-resize;
+		}
+		#right-nav {
+			cursor:e-resize;
+		}
+		#left-nav.inactive, #right-nav.inactive {
+			cursor:auto;
 		}
 		table {
 			float:left;
@@ -61,7 +74,7 @@
 				<input type="text" id="search-discoverer"></input>
 			</span>
 		</div>
-		<p id="left-nav" class="nav"><
+		<p id="left-nav" class="nav inactive"><
 		<table id="orions">
 			<tr>
 				<td><img src="http://www-space.arc.nasa.gov/~rubin/images/smaller/smorion_candy.gif"></img>
