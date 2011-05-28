@@ -65,18 +65,24 @@
 		}
 		table {
 			float:left;
+			width:700px;
+			height:550px;
+			overflow:hidden;
 		}
 		table img {
 			max-width:125px;
 			max-height:125px;
+			z-index:0;
+			position:relative;
 		}
 		table img:hover {
 			max-width:162.5px;
 			max-height:162.5px;
+			margin:-37.5px;
+			z-index:1;
 			-moz-box-shadow: 0 0 5px 5px yellow;
 			-webkit-box-shadow: 0 0 5px 5px yellow;
 			box-shadow: 0 0 5px 5px yellow;
-			margin:5px;
 		}
 		td {
 			text-align:center;
