@@ -320,23 +320,26 @@
 	}
 	$('#left-nav').hover(goLeft,stopAnimation);
 	$('#right-nav').hover(goRight,stopAnimation);
-	var ANIMATION_TIME = 4000
+	var ANIMATION_TIME = 10000
 	function goLeft(event) {
 		$('#right-nav').removeClass('inactive');
-		$('table').animate({left:0},ANIMATION_TIME);
+		$('table').animate({left:0},ANIMATION_TIME * leftProportion());
 		if (parseFloat($('table').css('left')) == 0) {
 			$(this).addClass('inactive');
 		}
 	}
 	function goRight(event) {
 		$('#left-nav').removeClass('inactive');
-		$('table').animate({left:furthestLeft()},ANIMATION_TIME);
+		$('table').animate({left:furthestLeft()},ANIMATION_TIME * (1 - leftProportion()));
 		if (parseFloat($('table').css('left')) == furthestLeft()) {
 			$(this).addClass('inactive');
 		}
 	}
 	function furthestLeft() {
 		return parseFloat($('#necessary-div').css('width')) - parseFloat($('table').css('width'));
+	}
+	function leftProportion() {
+		return parseFloat($('table').css('left')) / furthestLeft();
 	}
 	function stopAnimation() {
 		$('table').stop();
