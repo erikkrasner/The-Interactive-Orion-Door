@@ -140,18 +140,48 @@
 		<p id="footer"><a href="http://www-space.arc.nasa.gov/~rubin/door1.html">Orion Door</a> belongs to <a href="http://www-space.arc.nasa.gov/~rubin">Robert H. Rubin</a>. Site by <a href="https://github.com/erikkrasner">Erik</a> copyright 2011.<br>The Great Orion Door Collection including commercial uses of the name "Orion" in no way implies NASA's endorsement of these companies or their products.
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.6.min.js"></script>
 <script type="text/javascript">
+	var currentX = 0;
+	var maxLoadedX = 5;
+	var maxPossibleX = 46;
 	$('#orions img').hover(displayInfo,hideInfo);
 	function displayInfo(event) {
 		var name = $(this).attr('src').match(/[^\/]+$/);
 		var info = infoTable[name];
 		$('#infoDisplay').empty();
-		info && $('<h2>' + info.name + '</h2><h3>' + info.discoverer + '</h3><img src="/images/' + info.imgsrc + '"></img>').appendTo($('#infoDisplay'))
+		info && $('<h2>' + info.name + '</h2><h3>' + info.discoverer + '</h3><img src="/images/' + info.imgsrc + '"></img>').appendTo($('#infoDisplay'));
 		
 		$(this).css('width',function(index,value) {return parseFloat(value) * 1.3 + "px";});
 	}
 	function hideInfo(event) {
 		$(this).css('width',function(index,value) {return parseFloat(value) / 1.3 + "px";});
 	}
+	$('#left-nav').hover(goLeft,stopGoingLeft);
+	$('#right-nav').hover(goRight,stopGoingRight);
+	function goLeft(event) {
+		$('#right-nav').removeClass('inactive');
+		if (currentX == 0) {
+			$(this).addClass('inactive');
+		}
+	}
+	function goRight(event) {
+		$('#left-nav').removeClass('inactive');
+		if(currentX + 5 == maxPossibleX) {
+			$(this).addClass('inactive');
+		}
+		if(currentX + 6 > maxLoadedX) {
+			loadX(currentX + 6);
+		}
+	}
+	function stopGoingLeft(event) {
+		
+	}
+	function stopGoingRight(event) {
+		
+	}
+	function loadX(newX) {
+		maxLoadedX += 1;
+	}
+	
 	var infoTable = {
 		'smorion_candy.gif':{
 			name:'Orion Bar (candy)',
