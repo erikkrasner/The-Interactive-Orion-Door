@@ -63,11 +63,16 @@
 		#left-nav.inactive, #right-nav.inactive {
 			cursor:auto;
 		}
-		table {
+		#necessary-div {
+			position:relative;
 			float:left;
 			width:700px;
 			height:550px;
 			overflow:hidden;
+		}
+		table {
+			position:absolute;
+			left:0;
 		}
 		table img {
 			max-width:125px;
@@ -104,41 +109,43 @@
 			</span>
 		</div>
 		<p id="left-nav" class="nav inactive"><
-		<table id="orions">
-			<tr>
-				<td><img src="/images/smaller/smorion_candy.gif"></img>
-				<td><img src="/images/smaller/smorion_runner.jpg"></img>
-				<td><img src="/images/smaller/smalert.jpg"></img>
-				<td><img src="/images/smaller/smannreport.jpg"></img>
-				<td><img src="/images/smaller/smcamcorder.gif"></img>
-				<td><img src="/images/smaller/smciencias.jpg"></img>
-			</tr>
-			<tr>
-				<td><img src="/images/orion_expeditions_thumb.jpg"></img>
-				<td><img src="/images/smaller/smford.gif"></img>
-				<td><img src="/images/smaller/smfrenchorion_01.jpg"></img>
-				<td><img src="/images/smaller/smhalles.jpg"></img>
-				<td><img src="/images/smaller/smfrenchorion_02.jpg"></img>
-				<td><img src="/images/smaller/smfrenchorion_03.jpg"></img>
-			</tr>
-			<tr>
-				<td><img src="/images/smaller/smfrenchorion_04.jpg"></img>
-				<td><img src="/images/smaller/sminstruments_01.jpg"></img>
-				<td><img src="/images/smaller/sminstruments_02.jpg"></img>
-				<td><img src="/images/smaller/smneuilly.jpg"></img>
-				<td><img src="/images/smaller/smorion_brochure.gif"></img>
-				<td><img src="/images/smaller/smorion_conf.gif"></img>
-			</tr>
+		<div id="necessary-div">
+			<table id="orions">
+				<tr>
+					<td><img src="/images/smaller/smorion_candy.gif"></img>
+					<td><img src="/images/smaller/smorion_runner.jpg"></img>
+					<td><img src="/images/smaller/smalert.jpg"></img>
+					<td><img src="/images/smaller/smannreport.jpg"></img>
+					<td><img src="/images/smaller/smcamcorder.gif"></img>
+					<td><img src="/images/smaller/smciencias.jpg"></img>
+				</tr>
+				<tr>
+					<td><img src="/images/orion_expeditions_thumb.jpg"></img>
+					<td><img src="/images/smaller/smford.gif"></img>
+					<td><img src="/images/smaller/smfrenchorion_01.jpg"></img>
+					<td><img src="/images/smaller/smhalles.jpg"></img>
+					<td><img src="/images/smaller/smfrenchorion_02.jpg"></img>
+					<td><img src="/images/smaller/smfrenchorion_03.jpg"></img>
+				</tr>
+				<tr>
+					<td><img src="/images/smaller/smfrenchorion_04.jpg"></img>
+					<td><img src="/images/smaller/sminstruments_01.jpg"></img>
+					<td><img src="/images/smaller/sminstruments_02.jpg"></img>
+					<td><img src="/images/smaller/smneuilly.jpg"></img>
+					<td><img src="/images/smaller/smorion_brochure.gif"></img>
+					<td><img src="/images/smaller/smorion_conf.gif"></img>
+				</tr>
 			
-			<tr>
-				<td><img src="/images/smaller/smwhite.jpg"></img>
-				<td><img src="/images/smaller/smorioncard.jpg"></img>
-				<td><img src="/images/smaller/smorionmyst.gif"></img>
-				<td><img src="/images/smaller/smoriononline.jpg"></img>
-				<td><img src="/images/smaller/smorionschool.jpg"></img>
-				<td><img src="/images/smaller/smorionspa.gif"></img>
-			</tr>
-		</table>
+				<tr>
+					<td><img src="/images/smaller/smwhite.jpg"></img>
+					<td><img src="/images/smaller/smorioncard.jpg"></img>
+					<td><img src="/images/smaller/smorionmyst.gif"></img>
+					<td><img src="/images/smaller/smoriononline.jpg"></img>
+					<td><img src="/images/smaller/smorionschool.jpg"></img>
+					<td><img src="/images/smaller/smorionspa.gif"></img>
+				</tr>
+			</table>
+		</div>
 		<p id="right-nav" class="nav">>
 		<div id="infoDisplay">
 		</div>
@@ -146,9 +153,6 @@
 		<p id="footer"><a href="http://www-space.arc.nasa.gov/~rubin/door1.html">Orion Door</a> belongs to <a href="http://www-space.arc.nasa.gov/~rubin">Robert H. Rubin</a>. Site by <a href="https://github.com/erikkrasner">Erik</a> copyright 2011.<br>The Great Orion Door Collection including commercial uses of the name "Orion" in no way implies NASA's endorsement of these companies or their products.
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.6.min.js"></script>
 <script type="text/javascript">
-	var currentX = 0;
-	var maxLoadedX = 5;
-	var maxPossibleX = 46;
 	$('#orions img').hover(displayInfo,hideInfo);
 	function displayInfo(event) {
 		var name = $(this).attr('src').match(/[^\/]+$/);
@@ -161,28 +165,29 @@
 	function hideInfo(event) {
 		$(this).css('width',function(index,value) {return parseFloat(value) / 1.3 + "px";});
 	}
-	$('#left-nav').hover(goLeft,stopGoingLeft);
-	$('#right-nav').hover(goRight,stopGoingRight);
+	$('#left-nav').hover(goLeft,stopAnimation);
+	$('#right-nav').hover(goRight,stopAnimation);
+	var ANIMATION_TIME = 4000
 	function goLeft(event) {
 		$('#right-nav').removeClass('inactive');
-		if (currentX == 0) {
+		if (parseFloat($('table').css('left')) == 0) {
 			$(this).addClass('inactive');
 		}
+		$('table').animate({left:0},ANIMATION_TIME);
 	}
 	function goRight(event) {
 		$('#left-nav').removeClass('inactive');
-		if(currentX + 5 == maxPossibleX) {
-			$(this).addClass('inactive');
+		if (parseFloat($('table').css('left')) == furthestLeft()) {
+			$(this).addClass('inactive')
 		}
-		if(currentX + 6 > maxLoadedX) {
-			loadX(currentX + 6);
-		}
+		$('table').animate({left:furthestLeft()},ANIMATION_TIME);
 	}
-	function stopGoingLeft(event) {
-		
+	function furthestLeft() {
+		return $('#necessary-div').css('width') - $('table').css('width');
 	}
-	function stopGoingRight(event) {
-		
+	function stopAnimation() {
+		$.stop();
+		$.clearQueue();
 	}
 	function loadX(newX) {
 		maxLoadedX += 1;
