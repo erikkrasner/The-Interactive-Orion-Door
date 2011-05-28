@@ -333,10 +333,11 @@
 		if (parseFloat($('table').css('left')) == furthestLeft()) {
 			$(this).addClass('inactive')
 		}
+		alert(furthestleft())
 		$('table').animate({left:furthestLeft()},ANIMATION_TIME);
 	}
 	function furthestLeft() {
-		return $('#necessary-div').css('width') - $('table').css('width');
+		return parseFloat($('#necessary-div').css('width')) - parseFloat($('table').css('width'));
 	}
 	function stopAnimation() {
 		$.stop();
