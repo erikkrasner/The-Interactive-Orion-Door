@@ -307,18 +307,34 @@
 		<p id="footer"><a href="http://www-space.arc.nasa.gov/~rubin/door1.html">Orion Door</a> belongs to <a href="http://www-space.arc.nasa.gov/~rubin">Robert H. Rubin</a>. Site by <a href="https://github.com/erikkrasner">Erik</a> copyright 2011.<br>The Great Orion Door Collection including commercial uses of the name "Orion" in no way implies NASA's endorsement of these companies or their products.
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.6.min.js"></script>
 <script type="text/javascript">
-	$('#orions img').hover(displayInfo,hideInfo);
-	function displayInfo(event) {
-		var name = $(this).attr('src');
+	/*$('#orions img').hover(displayInfo,hideInfo);
+	/*function displayInfo(event) {
+		/*var name = $(this).attr('src');
 		var info = infoTable[name];
 		$('#infoDisplay').empty();
 		info && $('<h2>' + info.name + '</h2><h3>' + info.contributor + '</h3><img src="' + info.imgsrc + '"></img>').appendTo($('#infoDisplay'));
 		
 		$(this).css('width',function(index,value) {return parseFloat(value) * 1.3 + "px";});
-	}
-	function hideInfo(event) {
+	}*/
+	/*function hideInfo(event) {
 		$(this).css('width',function(index,value) {return parseFloat(value) / 1.3 + "px";});
-	}
+	}*/
+	$('table').bind('mouseover', function(event) {
+		var target = event.target;
+		if (target.tagName == "IMG") {
+			var name = $(target).attr('src');
+			var info = infoTable[name];
+			info && $('#infoDisplay').empty();
+			info && $('<h2>' + info.name + '</h2><h3>' + info.contributor + '</h3><img src="' + info.imgsrc + '"></img>').appendTo($('#infoDisplay'));
+			$(target).css('width',function(index,value) {return parseFloat(value) * 1.3 + "px";});
+		}
+	})
+	$('table').bind('mouseout',function(event) {
+		var target = event.target;
+		if (target.tagName == "IMG") {
+			$(target).css('width',function(index,value) {return parseFloat(value) / 1.3 + "px";});
+		}
+	})
 	$('#left-nav').hover(goLeft,stopAnimation);
 	$('#right-nav').hover(goRight,stopAnimation);
 	var ANIMATION_TIME = 10000
