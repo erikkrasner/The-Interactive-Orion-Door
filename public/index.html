@@ -7,9 +7,6 @@
 		body {
 			font-family:'Optima',serif;
 		}
-		#header {
-			margin-bottom:1em;
-		}
 		#header, #footer {
 			clear:left;
 		}
@@ -20,7 +17,8 @@
 		}
 		#footer {
 			text-align:right;
-			margin-top:1em;
+			font-size:14px;
+			margin-top:0;
 		}
 		h1 {
 			display:inline;
@@ -35,12 +33,12 @@
 		}
 		.nav {
 			width:70px;
-			height:500px;
+			height:550px;
 			margin:0;
 			background-color:black;
 			float:left;
 			text-align:center;
-			line-height:500px;
+			line-height:550px;
 			vertical-align:middle;
 			font-size:36px;
 			color:white;
@@ -67,12 +65,14 @@
 			position:relative;
 			float:left;
 			width:700px;
-			height:550px;
-			overflow:hidden;
+			height:570px;
+			overflow-y:visible;
+			overflow-x:hidden;
 		}
 		table {
 			position:absolute;
 			left:0;
+			top:20px;
 		}
 		table img {
 			max-width:125px;
