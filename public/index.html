@@ -78,13 +78,12 @@
 			max-width:125px;
 			max-height:125px;
 			z-index:0;
-			margin:0px;
 			position:relative;
 		}
 		table img:hover {
 			max-width:162.5px;
 			max-height:162.5px;
-			margin:-20px;
+			margin:-37.5px;
 			z-index:1;
 			-moz-box-shadow: 0 0 5px 5px orange;
 			-webkit-box-shadow: 0 0 5px 5px orange;
@@ -326,13 +325,17 @@
 	var ANIMATION_TIME = 10000
 	function goLeft(event) {
 		$('#right-nav').removeClass('inactive');
-		var $this = $(this);
-		$('table').animate({left:0},ANIMATION_TIME * leftProportion(),'linear',function(){$this.addClass('inactive')});
+		$('table').animate({left:0},ANIMATION_TIME * leftProportion());
+		if (parseFloat($('table').css('left')) == 0) {
+			$(this).addClass('inactive');
+		}
 	}
 	function goRight(event) {
 		$('#left-nav').removeClass('inactive');
-		var $this = $(this);
-		$('table').animate({left:furthestLeft()},ANIMATION_TIME * (1 - leftProportion()),'linear',function(){$this.addClass('inactive')});
+		$('table').animate({left:furthestLeft()},ANIMATION_TIME * (1 - leftProportion()));
+		if (parseFloat($('table').css('left')) == furthestLeft()) {
+			$(this).addClass('inactive');
+		}
 	}
 	function furthestLeft() {
 		return parseFloat($('#necessary-div').css('width')) - parseFloat($('table').css('width'));
