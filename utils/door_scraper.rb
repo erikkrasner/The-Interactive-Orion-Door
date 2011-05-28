@@ -1,9 +1,10 @@
 #!/usr/bin/env ruby
 require 'net/http'
 require 'uri'
-require "nokogiri"
+require 'nokogiri'
 
 door_num = 1
+file = File.new('orions.txt','w')
 while true
   uri = URI.parse("http://www-space.arc.nasa.gov/~rubin/door#{door_num}.html")
   http = Net::HTTP.new(uri.host,uri.port)
@@ -20,20 +21,18 @@ while true
       imgsrc = a[0]['href']
       timg = a > 'img'
       timgsrc = timg[0]['src']
-      txt = a.inner_text.strip
-      puts a.inner_text.length
+      name = a.inner_text.strip
+    
       contributor = this.inner_text.match(/\([^)]+\)/, a.inner_text.length)
       if !contributor
         contributor = "(Contributed by Bob Rubin)"
       end
-    
-      puts(imgsrc)
-      puts(timgsrc)
-      puts(txt)
-      puts(contributor)
+      
+      file.write([name,contributor,imgsrc,timgsrc].join("\t") + "\n")
     rescue
     end
   }
-  
+
   door_num += 1
 end
+file.close
